@@ -10,6 +10,7 @@ import datetime
 from collections import UserDict
 import pickle
 import pkg_resources
+import decimal
 try:
     import pandas as pd
 except ImportError:
@@ -47,7 +48,7 @@ class DatevEntry(UserDict):
         decimal_places = int(self._fields_dict[key]['DecimalPlaces'])
         if not value is None:
             if format_type == 'Betrag':
-                if not isinstance(value, float):
+                if not isinstance(value, float) and not isinstance(value, decimal.Decimal):
                     raise DatevFormatError("The value for key '{}' needs to be of type float.".format(key))
             elif format_type == 'Datum':
                 if not type(value) is datetime.date: #Check with type(), because isinstance() would also accept datetime.datetime.
