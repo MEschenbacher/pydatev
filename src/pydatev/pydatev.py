@@ -9,7 +9,7 @@ import os
 import datetime 
 from collections import UserDict
 import pickle
-import pkg_resources
+import importlib_resources
 import decimal
 try:
     import pandas as pd
@@ -20,7 +20,7 @@ class DatevFormatError(ValueError):
     '''Error for everything that conflicts with the DATEV file format specifications.'''
     pass
 
-with pkg_resources.resource_stream(__name__, "format-specifications.dat") as f:
+with importlib_resources.files(__name__).joinpath('format-specifications.dat').open('rb') as f:
     specifications = pickle.load(f)
 
 
